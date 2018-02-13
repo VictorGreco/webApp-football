@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Disable tap highlight on IE -->
+    <meta name="msapplication-tap-highlight" content="no">
+
+    <!-- METADATA LOOK'S NATIVE WEBAPP-->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="128x128" href="resources/nysl_logo/sizes/nysl_logo-120.png">
+
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Firebase Database Quickstart">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+    <!-- Tile icon for Win8 -->
+    <meta name="msapplication-TileColor" content="#3372DF">
+    <meta name="msapplication-navbutton-color" content="#303F9F">
+    <!--    BOOTSTRAP MIN-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- Material Design Lite -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.blue_grey-orange.min.css">
+
+    <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+    <!--    MY OWN CSS-->
+    <link rel="stylesheet" href="stylesheets/main.css">
+</head>
+<!--***************************************************     BODY       **************************************************-->
+
+<body>
+    <!-- [HEADER STARTS]  -->
+    <header class="row">
+        <div class="col-xs-12">
+            <nav class="navbar navbar-inverse navbar-btn">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" id="menuButton">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>                        
+                        </button>
+
+                        <div class="logo_text"><span>Northside Youth</span><span>Soccer League</span></div>
+                        <img src="resources/nysl_logo.png" class="my_Logo">
+                    </div>
+                    <div class="collapse navbar-collapse" id="myNavbar">
+                        <div class=" navbar-nav">
+                            <button class="btn btn-danger" id="games_button">GAMES</button>
+                            <button class="btn btn-danger" id="rules_button">RULES</button>
+                            <button class="btn btn-danger" id="contact_button">CONTACT</button>
+                            <button class="btn btn-danger" id="chat_button">CHAT</button>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <!-- [HEADER ENDS]  -->
+    <!-- [TITTLE ROW STARTS]-->
+    <div class="row">
+        <div class="col-xs-12 title_row" id="titleRow">
+            Game Information
+        </div>
+    </div>
+    <!-- [TITTLE ROW ENDS]-->
+    <!-- [CONTENT PARENT STARTS] -->
+    <section id="contentBody">
+        <!--
+        <div class="container" id="gamesID"></div>
+        <div class="container" id="rulesID"></div>
+-->
+        <div class="container" id="contact_page" style="display: none;"></div>
+        <div class="container" id="chat_page" style="display: none;"></div>
+    </section>
+    <!-- [CONTENT PARENT ENDS] -->
+    <div class="container" id="games_page" style="display: none;">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="aslamasda">
+                    <div class="gamesButtonHeader" id="gamesButtonHeader">
+                        <script type="text/html" id="gamesButtonHeader_Template">
+                            {{#MonthButtons}}
+                            <button type="button" class="btn-lg btn-danger" data-toogle="collapse" id="{{button_id}}">{{Month_Name}}</button> {{/MonthButtons}}
+                        </script>
+                    </div>
+
+                    <div id="information" class="information">
+                        <h2>Click on the month you are interested in!</h2>
+                    </div>
+                    <div class="collapse" id="september">
+                        <div class="nav navbar-nav">
+                            <div class="panel-group" id="accordion">
+                                <script type="text/html" id="septemberAccordeonInfo">
+                                    {{#SeptemberMatches}}
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="{{Collapse_ID_Reciver}}">{{Match_Date}}</a>
+                                            </h4>
+                                        </div>
+                                        <div id="{{Collapse_ID}}" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                {{#Matches}}
+                                                <div class="matches">
+                                                    <span>{{Match}}</span><span>{{Hour}}</span><span>{{Place}}</span>
+                                                    <button class="btn btn-danger"><a href="{{Place_Url}}" target="_blank">See Map</a></button>
+                                                </div>
+                                                {{/Matches}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{/SeptemberMatches}}
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="collapse" id="october">
+                        <div class="nav navbar-nav">
+                            <div class="panel-group" id="accordion2">
+                                <script type="text/html" id="octoberAccordeonInfo">
+                                    {{#OctoberMatches}}
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion2" href="{{Collapse_ID_Reciver}}">{{Match_Date}}</a>
+                                            </h4>
+                                        </div>
+                                        <div id="{{Collapse_ID}}" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                {{#Matches}}
+                                                <div class="matches">
+                                                    <span>{{Match}}</span><span>{{Hour}}</span><span>{{Place}}</span>
+                                                    <button class="btn btn-danger"><a href="{{Place_Url}}" target="_blank">See Map</a></button>
+                                                </div>
+                                                {{/Matches}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{/OctoberMatches}}
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container" id="rules_page" style="display: none;">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="nav navbar-nav">
+
+                    <div class="panel-group" id="accordion3">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion3" href="#collapse10">EQUIPMENT</a>
+                                </h4>
+                            </div>
+                            <div id="collapse10" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="rules">
+                                        We will abide by and accept equipment standards as defined by FIFA, USSF and USYSA.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion3" href="#collapse11">PLAYERS’ EQUIPMENT</a>
+                                </h4>
+                            </div>
+                            <div id="collapse11" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="rules">
+                                        Where the uniform colors of both teams are so similar that the referee orders a change, the designated home team must change to colors distinct from those of the opponent.
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion3" href="#collapse12">NUMBER OF PLAYERS</a>
+                                </h4>
+                            </div>
+                            <div id="collapse12" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="rules">
+                                        <p><strong>TEAM SIZE.</strong> Except as noted below, team rosters shall consist of not less than eleven nor more than eighteen players. A team must have at least seven (7) players present and able to play before referees are permitted to start a sanctioned game. No more than eleven (11) players per team may be on the field at any one time during the game.</p>
+                                        <p><strong>SIZE OF AGE GROUP TEAMS.</strong> In order to give player’s maximum opportunity to develop in the game of soccer, U-6 through U-1O play modified rules and size of roster as stated in United States Youth Soccer Association (USYSA) rules. It is strongly recommended that U-6 and U-8 play 4 v 4. UYSA shall not sanction games involving teams under 10 or younger unless such games are conducted with not more than eight (8) players per side. (National rule 4036 section 2)</p>
+                                        <p>Recreational/Developmental players at other ages or where numbers in the playing area are low are strongly encouraged to play small-sided games on reduced field size.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion3" href="#collapse13">REFEREE RESPONSIBLITIES</a>
+                                </h4>
+                            </div>
+                            <div id="collapse13" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="rules">
+                                        <p>The referee shall verify the identity of the players and coaches with his/her player pass. He shall collect the passes of those players and coaches who are to participate in the game. The referee must allow no player into the game for whom he/she has no pass.</p>
+                                        <p>Upon completion of the game, the referee shall send his/her report to the UYSA offices within four (4) days, holidays excluded. If a coach or a player is ejected, the referee report form is required within forty-eight (48) hours along with the player/coach pass.</p>
+                                        <p>A referee report form must be filed for every game played.</p>
+                                        <p>Each team must determine whether or not referees are registered prior to the start of each game. Upon request, referees officiating at any game must willingly and without bias, show documentation regarding their certification level and registration standing with the USSF to coach, assistant coach, or team captain of teams participating in that game. Prior to the game a coach may decide to postpone the game if the referees do not produce the requested documentation. The game is to be replayed at a later date.</p>
+                                        <p>Referees not complying with this section will be referred to the Disciplinary Committee.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion3" href="#collapse14">COACHING FROM THE SIDELINES</a>
+                                </h4>
+                            </div>
+                            <div id="collapse14" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="rules">
+                                        <ol>
+                                            <p>Coaching from the sidelines, i.e., giving direction to one’s own team on points of strategy and position, is permitted provided that:</p>
+                                            <li>No mechanical, electrical or other devices are used to amplify the voice.</li>
+                                            <li>The tone of voice is informative and not a harangue.</li>
+                                            <li>The coaching takes place within the team’s bench area.</li>
+                                            <li>No coach, substitute, player or spectator is to make derogatory remarks or gestures to the referees, linesmen, players, substitutes or spectators.</li>
+                                            <li>No coach, player, substitute or spectator is to use profanity or incite, in any manner, disruptive behavior of any kind.</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion3" href="#collapse15">CONFISCATED PLAYER PASSES</a>
+                                </h4>
+                            </div>
+                            <div id="collapse15" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="rules">
+                                        <p>Passes of any individual(s) ejected from any match shall be retained after the match by the referee. The pass of any individual who has received a third caution (yellow card) during a playing year shall be confiscated by the referee at the conclusion of the match in which the third caution was received. That player will be suspended from playing in the next game in which the offending participant would otherwise be eligible to participate. This process will continue so that for every third yellow card received during a playing year, the player will be suspended from playing in the next game (after the receipt of a third yellow card) for which the offending participate would otherwise be eligible to participate. The referee shall deliver all confiscated passes to the UYSA State Office within forty-eight (48) hours of the conclusion of the match.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion3" href="#collapse16">SUBSTITUTIONS</a>
+                                </h4>
+                            </div>
+                            <div id="collapse16" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="rules">
+                                        <ol>
+                                            <p>Teams may make an unlimited number of substitutions at the times indicated below. A player who has been replaced may re-enter the game as a substitute at a later time.</p>
+                                            <li>Prior to a throw-in your favor.</li>
+                                            <li>Prior to a goalkick by either team.</li>
+                                            <li>After a goal by either team.</li>
+                                            <li>After an injury, by either team, when the referee stops play.</li>
+                                            <li>At half time.</li>
+                                            <li>When a player has been “cautioned”, only the player receiving “caution” may be substituted.</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion3" href="#collapse18">SPORTSMANSHIP</a>
+                                </h4>
+                            </div>
+                            <div id="collapse18" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="rules">
+                                        <p>The common interest that members of the Association share is to inspire youth to practice the ideals of sportsmanship and fair play. Any player, coach, team, parent, spectator, administrator or referee whose behavior detracts from this purpose is subject to disciplinary action regardless of technical soccer background, expertise, accomplishments or standing.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion3" href="#collapse19">ALL-PLAY</a>
+                                </h4>
+                            </div>
+                            <div id="collapse19" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="rules">
+                                        <ul>
+                                            <p>All-play means that every recreation player on every team shall play at least fifty percent of each game. Coaches in the competition program are encouraged to play their players 50% of each game.</p>
+                                            <li>A Coach shall be permitted to not play a player 50% of each game under special circumstances, e.g., unexcused absences from practice and/or games, ungentlemanly conduct at practice and/or games, and injuries.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion3" href="#collapse20">MIXED TEAMS</a>
+                                </h4>
+                            </div>
+                            <div id="collapse20" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="rules">
+                                        <p><strong>GIRLS PLAYING ON BOYS’ TEAMS. </strong>Girls are eligible to play on boys’ teams with parent/guardian permission.</p>
+                                        <p><strong>TYPES OF TEAMS.</strong>Teams with females only are Girls Teams. All others are Boys Teams.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion3" href="#collapse21">GAME TERMINATION</a>
+                                </h4>
+                            </div>
+                            <div id="collapse21" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="rules">
+                                        <p>Any game terminated after 15 minutes into the second half by the referee by reason of the elements, or by reason of grave disorder on the part of the coaches, players or spectators of a team that is losing at the point that the game is terminated, shall stand as a completed game. If a team is ahead and the game is called because of their actions they will lose the game 1-0.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!--    SCRIPTS-->
+    <!--    jQUERRY MIN-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- MUSTACHE MIN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+    <!-- Import and configure the Firebase SDK -->
+    <script src="/__/firebase/4.6.2/firebase-app.js"></script>
+    <script src="/__/firebase/4.6.2/firebase-auth.js"></script>
+    <script src="/__/firebase/4.6.2/firebase-database.js"></script>
+    <script src="/__/firebase/4.6.2/firebase-messaging.js"></script>
+    <script src="/__/firebase/init.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyB5ClIPZ9yj9i1A5-sidzY9STzCX4u55II",
+            authDomain: "aslamasda-webs.firebaseapp.com",
+            databaseURL: "https://aslamasda-webs.firebaseio.com",
+            projectId: "aslamasda-webs",
+            storageBucket: "aslamasda-webs.appspot.com",
+            messagingSenderId: "1001676203430"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+
+    <script src="scripts/main.js"></script>
+    <script src="scripts/chat.js"></script>
+    <!--    MY OWN JAVASCRIPT-->
+
+</body>
+
+</html>
