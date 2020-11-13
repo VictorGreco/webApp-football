@@ -1,4 +1,4 @@
-# webApp-football
+# webapp-football
 
 ## Introduction
 A mobile single page application solution for a local football school team. 
